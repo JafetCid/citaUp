@@ -61,7 +61,7 @@ export default function Sidebar() {
                 >
                     <div className="flex flex-col gap-6 pt-10">
                         {links.map(({ href, label, icon }) => (
-                            <nav key={href}>
+                            <div key={href}>
                                 <Link href={href} className="flex gap-2">
                                     {icon}
                                     <p className="flex flex-col">
@@ -77,7 +77,7 @@ export default function Sidebar() {
                                         )}
                                     </p>
                                 </Link>
-                            </nav>
+                            </div>
                         ))}
                     </div>
                 </div>
