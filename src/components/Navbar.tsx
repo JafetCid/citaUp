@@ -7,7 +7,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { IoCalendarClearOutline, IoHomeOutline, IoBriefcaseOutline, IoPersonOutline } from "react-icons/io5";
-import { Links } from '@/types/navbar';
+import { Links } from '@/types/Navbar/navbar';
 import { FaBars } from 'react-icons/fa';
 
 export default function Navbar() {
