@@ -12,7 +12,7 @@ export default function Navbar() {
 
     const pathname = usePathname();
     const links: Links[] = [
-        { href: "/", label: "Inico", icon: <IoHomeOutline size={24} /> },
+        { href: "/", label: "Inicio", icon: <IoHomeOutline size={24} /> },
         { href: "/appointments", label: "Agendar cita", icon: <IoCalendarClearOutline size={24} /> },
         { href: "/services-doc", label: "Servicios", icon: <IoBriefcaseOutline size={24} /> },
     ];
