@@ -1,14 +1,12 @@
 'use client'
 
-import React from 'react'
 import Image from "next/image";
 import Link from "next/link";
 
 import { motion } from "framer-motion";
+import { Links } from '@/types/components/Navbar/navbar';
 import { usePathname } from "next/navigation";
 import { IoCalendarClearOutline, IoHomeOutline, IoBriefcaseOutline, IoPersonOutline } from "react-icons/io5";
-import { Links } from '@/types/Navbar/navbar';
-import { FaBars } from 'react-icons/fa';
 
 export default function Navbar() {
 

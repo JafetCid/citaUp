@@ -1,4 +1,4 @@
-import { PropsCard } from '@/types/Card/card'
+import { PropsCard } from '@/types/components/Card/card'
 import React from 'react'
 
 export default function Card({ title, contenido, duracion, incluye }:PropsCard) {
