@@ -2,82 +2,216 @@
 
 import React, { useState } from 'react'
 
-import Input from '@/components/Input';
-import TextArea from '@/components/TextArea';
+import { motion } from 'framer-motion'
+import { IoCalendarOutline, IoTimeOutline, IoPersonOutline, IoMailOutline, IoCallOutline, IoDocumentTextOutline } from 'react-icons/io5'
+import { AppointmentsForm } from '@/types/validations/appointmentForm/appointment'
+import Input from '@/components/Input'
+import Select from '@/components/Select'
+import TextArea from '@/components/TextArea'
+import { appointmentForm } from '@/lib/validations/appointmentForm'
+import { horasDisponibles, servicios } from '@/lib/constants/data'
+import CitaModal from '@/components/CitaModal'
 
-export default function page() {
 
-    const [step, setStep] = useState<number>(1);
+export default function AppointmentsPage() {
+    const [formData, setFormData] = useState<AppointmentsForm>({
+        name: '', email: '', phoneNumber: '', date: '', hour: '', service: '', comments: ''
+    });
 
-    const nextStep = () => {
-        setStep((prev) => {
-            return Math.min(prev + 1, 2);
-        })
+    const [errors, setErrors] = useState<Partial<AppointmentsForm>>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const handleInputChange = (value: string | number, field: keyof AppointmentsForm) => {
+        setFormData((prev) => ({
+            ...prev,
+            [field]: value,
+        }));
     }
 
-    const prevStep = () => {
-        setStep((prev) => {
-            return Math.max(prev - 1, 1);
-        })
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        const validationErrors = appointmentForm(formData);
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+
+            setIsSubmitting(true);
+
+            // Simular envío de formulario
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            setIsSubmitting(false);
+            setIsSubmitted(true);
+        }
+    }
+
+    if (isSubmitted) {
+        return <CitaModal
+            date={formData.date}
+            hour={formData.hour}
+            service={formData.service}
+            onClick={ () => {
+                setIsSubmitted(false)
+                setFormData({ name: '', email: '', phoneNumber: '', date: '', hour: '', service: '', comments: '' })
+            }} 
+        />
     }
 
     return (
-        <div className="grid py-16 px-5">
-            <h1 className="mb-10 text-3xl font-bold text-center">Agendar cita</h1>
-            <form key={step} className="md:flex md:justify-center">
-                <div className="flex flex-col gap-5 p-7 lg:w-1/2 shadow-xl">
-                    <h3 className="text-center text-xl">{step > 1 ? "Hora y Fecha" : "Información básica"}</h3>
-                    <div className="flex gap-5 justify-center">
-                        {[1, 2].map((num, index) => (
-                            <h2 key={index} className={`flex w-10 h-10 items-center justify-center rounded-full text-white ${step >= num ? "bg-blue-600" : "bg-gray-400"}`}>
-                                {num}
-                            </h2>
-                        ))}
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-100 py-16">
+            <div className="container mx-auto px-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-4xl mx-auto"
+                >
+                    {/* Header */}
+                    <div className="text-center mb-12">
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6"
+                        >
+                            <IoCalendarOutline className="w-8 h-8 text-blue-600" />
+                        </motion.div>
+                        <h1 className="text-4xl font-bold text-gray-900 mb-4">Agendar Cita</h1>
+                        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                            Completa el formulario para reservar tu cita médica. Te confirmaremos la disponibilidad y te enviaremos un recordatorio.
+                        </p>
                     </div>
 
-
-                    {step === 1 && (
-                        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                            <Input label="Nombre" type="text" value={""} onChange={() => console.log("")} />
-                            <Input label="Apellidos" type="text" value={""} onChange={() => console.log("")} />
-                            <Input label="Edad" type="number" value={""} onChange={() => console.log("")} />
-                            <Input label="Correo" type="email" value={""} onChange={() => console.log("")} />
-                            <Input label="Telefono" type="tel" value={""} onChange={() => console.log("")} />
-                        </div>
-                    )}
-
-                    {step === 2 && (
-                        <div>
-                            <div className="grid grid-cols-2 gap-5 mb-5">
-                                <Input label="Horario" type="time" value={""} onChange={() => console.log("")} />
-                                <Input label="Fecha" type="date" value={""} onChange={() => console.log("")} />
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        {/* Información de contacto */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="lg:col-span-1"
+                        >
+                            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
+                                <h3 className="text-xl font-semibold text-gray-900 mb-4">Información de Contacto</h3>
+                                <div className="space-y-4">
+                                    <div className="flex items-center text-gray-600">
+                                        <IoCallOutline className="w-5 h-5 mr-3 text-blue-600" />
+                                        <span>+1 (555) 123-4567</span>
+                                    </div>
+                                    <div className="flex items-center text-gray-600">
+                                        <IoMailOutline className="w-5 h-5 mr-3 text-blue-600" />
+                                        <span>citas@citaup.com</span>
+                                    </div>
+                                    <div className="flex items-start text-gray-600">
+                                        <IoTimeOutline className="w-5 h-5 mr-3 text-blue-600 mt-1" />
+                                        <div>
+                                            <p className="font-medium">Horarios de atención:</p>
+                                            <p className="text-sm">Lunes - Viernes: 9:00 AM - 6:00 PM</p>
+                                            <p className="text-sm">Sábados: 9:00 AM - 2:00 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <TextArea
-                                label="Síntomas o tipo de cita"
-                                value={""}
-                                onChange={() => console.log("")}
-                            />
-                        </div>
-                    )}
+                        </motion.div>
 
-                    <div className="flex w-full justify-end">
-                        {step > 1 ? (
-                            <div className="flex justify-between w-full">
-                                <button onClick={prevStep} className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:opacity-95">
-                                    Atras
-                                </button>
-                                <button className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:opacity-95">
-                                    Enviar
-                                </button>
+                        {/* Formulario */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            className="lg:col-span-2"
+                        >
+                            <div className="bg-white rounded-2xl shadow-lg p-8">
+                                <form onSubmit={handleSubmit} className="space-y-6">
+                                    {/* Datos personales */}
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <Input
+                                            label="Nombre completo"
+                                            placeholder="Tu nombre completo"
+                                            icon={<IoPersonOutline className="inline w-4 h-4 mr-2" />}
+                                            type="text"
+                                            value={formData.name}
+                                            onChange={(e) => handleInputChange(e, "name")}
+                                            error={errors.name as string}
+                                        />
+                                        <Input
+                                            label="Email"
+                                            placeholder="tu@email.com"
+                                            icon={<IoMailOutline className="inline w-4 h-4 mr-2" />}
+                                            type="email"
+                                            value={formData.email}
+                                            onChange={(e) => handleInputChange(e, "email")}
+                                            error={errors.email as string}
+                                        />
+                                        <Input
+                                            label="Teléfono"
+                                            placeholder="+1 (555) 123-4567"
+                                            icon={<IoCallOutline className="inline w-4 h-4 mr-2" />}
+                                            type="tel"
+                                            value={formData.phoneNumber}
+                                            onChange={(e) => handleInputChange(e, "phoneNumber")}
+                                            error={errors.phoneNumber as string}
+                                        />
+
+                                        {/* Fecha y hora */}
+
+                                        <Input
+                                            label="Fecha preferida"
+                                            icon={<IoCalendarOutline className="inline w-4 h-4 mr-2" />}
+                                            type="date"
+                                            min={new Date().toISOString().split('T')[0]}
+                                            value={formData.date}
+                                            onChange={(e) => handleInputChange(e, "date")}
+                                            error={errors.date as string}
+                                        />
+                                        <Select
+                                            label="Hora preferida"
+                                            icon={<IoTimeOutline className="inline w-4 h-4 mr-2" />}
+                                            info={horasDisponibles}
+                                            value={formData.hour}
+                                            onChange={(e) => handleInputChange(e, "hour")}
+                                            error={errors.hour as string}
+                                        />
+                                        <Select
+                                            label="Tipo de servicio"
+                                            icon={<IoDocumentTextOutline className="inline w-4 h-4 mr-2" />}
+                                            info={servicios}
+                                            value={formData.service}
+                                            onChange={(e) => handleInputChange(e, "service")}
+                                            error={errors.service as string}
+                                        />
+                                    </div>
+
+                                    <TextArea
+                                        label="Comentarios adicionales"
+                                        placeholder="Cuéntanos si tienes alguna preferencia especial o información adicional..."
+                                        value={formData.comments}
+                                        onChange={(e) => handleInputChange(e, "comments")}
+                                    />
+
+                                    <motion.button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-sky-500 text-white py-2.5 px-6 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-sky-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {isSubmitting ? (
+                                            <div className="flex items-center justify-center">
+                                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                                                Agendando...
+                                            </div>
+                                        ) : (
+                                            'Confirmar Cita'
+                                        )}
+                                    </motion.button>
+                                </form>
                             </div>
-                        ) : (
-                            <button onClick={nextStep} className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:opacity-95">
-                                Siguiente
-                            </button>
-                        )}
+                        </motion.div>
                     </div>
-                </div>
-            </form>
+                </motion.div>
+            </div>
         </div>
     )
 }

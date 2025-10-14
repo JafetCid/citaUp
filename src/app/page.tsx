@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="bg-white text-slate-900 z-10">
+    <main className="bg-gradient-to-br from-blue-50 to-sky-100 min-h-screen text-slate-900 z-10">
       <section className="container mx-auto px-6 lg:px-20 py-16">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-around">
           {/* contenido del texto */}

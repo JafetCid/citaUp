@@ -15,7 +15,6 @@ export default function Navbar() {
         { href: "/", label: "Inico", icon: <IoHomeOutline size={24} /> },
         { href: "/appointments", label: "Agendar cita", icon: <IoCalendarClearOutline size={24} /> },
         { href: "/services-doc", label: "Servicios", icon: <IoBriefcaseOutline size={24} /> },
-        { href: "/contact", label: "Contacto", icon: <IoPersonOutline size={24} /> },
     ];
 
     return (
