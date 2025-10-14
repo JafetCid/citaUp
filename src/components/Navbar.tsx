@@ -31,7 +31,7 @@ export default function Navbar() {
                         <div key={href}>
                             <Link href={href} className="flex gap-2">
                                 {icon}
-                                <p className="flex flex-col">
+                                <motion.p className="flex flex-col">
                                     {label}
                                     {pathname === href && (
                                         <motion.span
@@ -45,7 +45,7 @@ export default function Navbar() {
                                         >
                                         </motion.span>
                                     )}
-                                </p>
+                                </motion.p>
                             </Link>
                         </div>
                     ))}
