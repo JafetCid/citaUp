@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Links } from '@/types/components/Navbar/navbar';
 import { usePathname } from "next/navigation";
-import { IoCalendarClearOutline, IoHomeOutline, IoBriefcaseOutline, IoPersonOutline } from "react-icons/io5";
+import { IoCalendarClearOutline, IoHomeOutline } from "react-icons/io5";
 
 export default function Navbar() {
 
@@ -14,16 +14,15 @@ export default function Navbar() {
     const links: Links[] = [
         { href: "/", label: "Inicio", icon: <IoHomeOutline size={24} /> },
         { href: "/appointments", label: "Agendar cita", icon: <IoCalendarClearOutline size={24} /> },
-        { href: "/services-doc", label: "Servicios", icon: <IoBriefcaseOutline size={24} /> },
     ];
 
     return (
-        <>
+        <div className="hidden w-full bg-white md:block md:absolute z-10">
             <motion.nav
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="hidden justify-between items-center py-4 px-4 md:flex"
+                className="justify-between items-center py-4 px-10 md:flex"
             >
                 <Image src={'/logo.png'} alt="logo" width={100} height={100} />
                 <div className="flex gap-5">
@@ -51,6 +50,7 @@ export default function Navbar() {
                     ))}
                 </div>
             </motion.nav>
-        </>
+            <div className="bg-black/10 h-px"></div>
+        </div>
     );
 }

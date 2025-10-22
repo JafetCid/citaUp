@@ -3,24 +3,24 @@
 import React, { useState } from 'react'
 
 import { motion } from 'framer-motion'
-import { IoCalendarOutline, IoTimeOutline, IoPersonOutline, IoMailOutline, IoCallOutline, IoDocumentTextOutline } from 'react-icons/io5'
+import { horasDisponibles, servicios } from '@/lib/constants/data'
+import { appointmentForm } from '@/lib/validations/appointmentForm'
 import { AppointmentsForm } from '@/types/validations/appointmentForm/appointment'
+import { IoCalendarOutline, IoTimeOutline, IoPersonOutline, IoMailOutline, IoCallOutline, IoDocumentTextOutline } from 'react-icons/io5'
 import Input from '@/components/Input'
 import Select from '@/components/Select'
 import TextArea from '@/components/TextArea'
-import { appointmentForm } from '@/lib/validations/appointmentForm'
-import { horasDisponibles, servicios } from '@/lib/constants/data'
 import CitaModal from '@/components/CitaModal'
 
 
 export default function AppointmentsPage() {
+
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errors, setErrors] = useState<Partial<AppointmentsForm>>({});
     const [formData, setFormData] = useState<AppointmentsForm>({
         name: '', email: '', phoneNumber: '', date: '', hour: '', service: '', comments: ''
     });
-
-    const [errors, setErrors] = useState<Partial<AppointmentsForm>>({});
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleInputChange = (value: string | number, field: keyof AppointmentsForm) => {
         setFormData((prev) => ({
@@ -60,8 +60,8 @@ export default function AppointmentsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-100 py-16">
-            <div className="container mx-auto px-4">
+        <div className="min-h-screen py-16">
+            <div className="container mx-auto px-5 md:py-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -84,13 +84,13 @@ export default function AppointmentsPage() {
                         </p>
                     </div>
 
-                    <div className="grid lg:grid-cols-3 gap-8">
+                    <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8">
                         {/* Información de contacto */}
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="lg:col-span-1"
+                            className="flex justify-center lg:block lg:col-span-1"
                         >
                             <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
                                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Información de Contacto</h3>

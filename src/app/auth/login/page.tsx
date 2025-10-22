@@ -1,15 +1,25 @@
-import Image from 'next/image'
-import React from 'react'
+'use client'
 
-export default function LoginPage() {
+import React from 'react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
+export default function Page() {
+
+    const route = useRouter();
+
+    const handleSubmit = () => {
+        route.push("/doctor/welcome");
+    }
+
     return (
-        <main className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-100 text-slate-900 flex items-center">
+        <main className="min-h-screen text-slate-900 flex items-center">
             <section className="container mx-auto px-6 lg:px-20 py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Illustration */}
                     <div className="order-2 lg:order-1 flex justify-center lg:justify-center">
                         <div className="max-w-md">
-                            <Image src="/logo-salud.png" alt="Ilustración calendario" width={520} height={380} className="w-full h-auto" />
+                            <Image src="/logo-salud.png" alt="Ilustración calendario" width={520} height={380} className="object-contain" />
                         </div>
                     </div>
 
@@ -22,7 +32,7 @@ export default function LoginPage() {
                             <form className="mt-6 bg-white rounded-2xl p-6 shadow-md space-y-4">
                                 <label className="flex flex-col">
                                     <span className="text-sm font-medium text-slate-700">Correo electrónico</span>
-                                    <input name="email" type="email" required placeholder="tu@ejemplo.com" className="mt-1 px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
+                                    <input type="email" placeholder="tu@ejemplo.com" required className="mt-1 px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
                                 </label>
 
                                 <label className="flex flex-col">
@@ -30,7 +40,7 @@ export default function LoginPage() {
                                         <span className="text-sm font-medium text-slate-700">Contraseña</span>
                                         <a href="#" className="text-sm text-sky-600">¿Olvidaste tu contraseña?</a>
                                     </div>
-                                    <input name="password" type="password" required placeholder="Contraseña" className="mt-1 px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
+                                    <input type="password" placeholder="Contraseña" required className="mt-1 px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
                                 </label>
 
                                 <div className="flex items-center justify-between">
@@ -42,7 +52,7 @@ export default function LoginPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-sky-400 text-white px-4 py-2.5 rounded-md font-medium">Log In</button>
+                                    <button type="submit" onClick={handleSubmit} className="w-full bg-gradient-to-r from-blue-600 to-sky-400 text-white px-4 py-2.5 rounded-md font-medium">Log In</button>
 
                                     <button type="button" className="w-full border border-slate-200 px-4 py-2.5 rounded-md flex items-center justify-center gap-2">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +65,7 @@ export default function LoginPage() {
                                     </button>
                                 </div>
 
-                                <p className="text-sm text-slate-600 text-center">¿No tienes cuenta? <a href="/signup" className="text-sky-600">Regístrate</a></p>
+                                <p className="text-sm text-slate-600 text-center">¿No tienes cuenta? <a href="/auth/signup" className="text-sky-600">Regístrate</a></p>
                             </form>
                         </div>
                     </div>

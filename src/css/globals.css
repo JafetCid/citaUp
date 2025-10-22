@@ -3,10 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-html {
-  scroll-behavior: smooth;
+  /* --background: linear-gradient(to bottom right, #eff6ff, #e0f2fe); */
 }
 
 /* @theme inline {
