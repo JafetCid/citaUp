@@ -1,19 +1,34 @@
-'use client'
-
-import React from 'react'
+'use client';
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 
-export default function Page() {
+export default function LoginPage() {
+    const [email,setEmail]=React.useState('');
+    const [password,setPassword]=useState('');
 
-    const route = useRouter();
 
-    const handleSubmit = () => {
-        route.push("/doctor/welcome");
+    const handleLogin = async(e: React.FormEvent)=>{
+        e.preventDefault();
+
+        // const res= await fetch('/api/auth/login',{
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({email, password})
+
+        // });
+        // const data= await res.json();
+        // console.log(data);
+        // if (data.success) {
+        //     // Redirigir o actualizar la UI
+        //     console.log('Login exitoso');
+        // } else {
+        //     console.log('Error de login:', data.message);
+        // }
     }
-
     return (
-        <main className="min-h-screen text-slate-900 flex items-center">
+        <main className="min-h-screen  flex items-center">
             <section className="container mx-auto px-6 lg:px-20 py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Illustration */}
@@ -25,36 +40,36 @@ export default function Page() {
 
                     {/* Form */}
                     <div className="order-1 lg:order-2">
-                        <div className="max-w-md mx-auto">
+                        <div className="max-w-md text-[var(--text-primary)] mx-auto">
                             <h1 className="text-2xl lg:text-3xl font-extrabold">Iniciar sesión</h1>
-                            <p className="text-sm text-slate-600 mt-2">Accede a tu cuenta para gestionar y agendar citas rápidamente.</p>
+                            <p className="text-sm  mt-2">Accede a tu cuenta para gestionar y agendar citas rápidamente.</p>
 
                             <form className="mt-6 bg-white rounded-2xl p-6 shadow-md space-y-4">
                                 <label className="flex flex-col">
                                     <span className="text-sm font-medium text-slate-700">Correo electrónico</span>
-                                    <input type="email" placeholder="tu@ejemplo.com" required className="mt-1 px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
+                                    <input name="email" type="email" required placeholder="tu@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 px-3 py-2 text-[var(--text-secondary)] rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
                                 </label>
 
                                 <label className="flex flex-col">
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-slate-700">Contraseña</span>
-                                        <a href="#" className="text-sm text-sky-600">¿Olvidaste tu contraseña?</a>
+                                        <a href="#" className="text-sm text-[var(--accent)]">¿Olvidaste tu contraseña?</a>
                                     </div>
-                                    <input type="password" placeholder="Contraseña" required className="mt-1 px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
+                                    <input name="password" type="password" required placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)}  className="mt-1 px-3 py-2 text-[var(--text-secondary)] rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
                                 </label>
 
                                 <div className="flex items-center justify-between">
                                     <label className="inline-flex items-center gap-2 text-sm">
                                         <input type="checkbox" className="form-checkbox h-4 w-4 text-sky-600" />
-                                        <span>Recuérdame</span>
+                                        <span className="text-[var(--text-secondary)]">Recuérdame</span>
                                     </label>
-                                    <button className="text-sm text-slate-600">Ayuda</button>
+                                    <button className="text-sm text-[var(--accent)]">Ayuda</button>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <button type="submit" onClick={handleSubmit} className="w-full bg-gradient-to-r from-blue-600 to-sky-400 text-white px-4 py-2.5 rounded-md font-medium">Log In</button>
+                                    <button type="submit" onClick={handleLogin} className="w-full bg-gradient-to-r from-blue-600 to-sky-400 text-white px-4 py-2.5 rounded-md font-medium">Log In</button>
 
-                                    <button type="button" className="w-full border border-slate-200 px-4 py-2.5 rounded-md flex items-center justify-center gap-2">
+                                    <button type="button" className="w-full border border-slate-200 px-4 py-2.5 text-[var(--text-secondary)]     rounded-md flex items-center justify-center gap-2">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M21 12.3c0-.7-.1-1.3-.2-1.9H12v3.6h5.6c-.2 1.1-.8 2-1.6 2.7l2.6 2c1.5-1.4 2.5-3.5 2.5-6.4z" fill="#4285F4" />
                                             <path d="M12 22c2.7 0 5-0.9 6.7-2.4l-2.6-2c-0.7 0.5-1.8 1-4.1 1-3.1 0-5.6-2.1-6.5-5l-2.8 2.1C5.9 19.8 8.7 22 12 22z" fill="#34A853" />

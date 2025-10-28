@@ -4,8 +4,8 @@ import { IoChatbubbleSharp, IoLogoFacebook, IoLogoWhatsapp } from 'react-icons/i
 export default function Footer() {
     return (
         <>
-            <div className="bg-black/10 h-px"></div>
-            <div className="flex flex-col p-5 items-center">
+            <div className="w-full h-px bg-white"></div>
+            <div className="flex flex-col p-5 items-center bg-[var(--background)] dark:bg-[var(--background)] dark:text-[var(--text-primary)]">
                 <span> © 2025 - CitaUp</span>
                 <span>Todos los derechos reservados</span>
 

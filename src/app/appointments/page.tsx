@@ -60,8 +60,8 @@ export default function AppointmentsPage() {
     }
 
     return (
-        <div className="min-h-screen py-16">
-            <div className="container mx-auto px-5 md:py-10">
+        <div className="min-h-screen py-10">
+            <div className="container mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -78,8 +78,8 @@ export default function AppointmentsPage() {
                         >
                             <IoCalendarOutline className="w-8 h-8 text-blue-600" />
                         </motion.div>
-                        <h1 className="text-4xl font-bold text-gray-900 mb-4">Agendar Cita</h1>
-                        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                        <h1 className="text-4xl font-bold mb-4 dark:text-[var(--text-primary)]">Agendar Cita</h1>
+                        <p className="text-lg max-w-2xl mx-auto dark:text-[var(--text-primary)]">
                             Completa el formulario para reservar tu cita médica. Te confirmaremos la disponibilidad y te enviaremos un recordatorio.
                         </p>
                     </div>

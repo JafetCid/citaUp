@@ -1,44 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  /* --background: linear-gradient(to bottom right, #eff6ff, #e0f2fe); */
+  /* Modo claro por defecto */
+  --background: linear-gradient(to right, #38bdf8, #2563eb);
+  --foreground: #1f2937;
+  --accent: #007bff;
+  --text-primary: #f1f5f9;
+  --text-secondary: #4b5563;
+  --font-sans: Arial, Helvetica, sans-serif;
 }
 
-/* @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* .bg-gradient-brand {
+  /* background-image: linear-gradient(to right, #2563eb, #38bdf8); */
+
+
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #111827;
+/* bg-gray-900;  */
+    /* --background: #1e1b4b;  */
+    /* Indigo oscuro */
+    /* --background: #2b1e3f; Indigo oscuro */
+    /* --background: #4a2b6f; Indigo oscuro */
+    /* --foreground: #f1f5f9; Gris claro */
+    --accent: #38bdf8;     /* Azul claro */
+    --text-primary: #f1f5f9;
+    --text-secondary: #4b5563;/* Azul muy claro */
+    --font-sans: Arial, Helvetica, sans-serif;
   }
-} */
+}
+
+html {
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
 
 body {
-  background: var(--background);
+  background-image: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  
+  font-family: var(--font-sans);
 }
+
+/* Scrollbar oculto */
 * {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE y Edge */
 }
 
-/* Para navegadores basados en WebKit (Chrome, Safari, móviles) */
 *::-webkit-scrollbar {
   width: 0px;
   height: 0px;
   display: none;
-}
-
-/* Para ocultar el rebote en móviles (opcional) */
-html, body {
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
 }
