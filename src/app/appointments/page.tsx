@@ -60,7 +60,7 @@ export default function AppointmentsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-100 py-16">
+        <div className="min-h-screen  py-26">
             <div className="container mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
