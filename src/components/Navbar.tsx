@@ -50,7 +50,7 @@ export default function Navbar() {
                     ))}
                 </div>
             </motion.nav>
-            <div className="bg-black/10 h-px"></div>
+            {/* <div className="bg-black/10 h-px"></div> */}
         </div>
     );
 }

@@ -25,7 +25,7 @@ export default function Sidebar() {
     }
 
     return (
-        <>
+        <div className="absolute w-full md:hidden">
             <motion.nav
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -66,6 +66,6 @@ export default function Sidebar() {
                     </div>
                 </div>
             </motion.nav>
-        </>
+        </div>
     );
 }

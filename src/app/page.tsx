@@ -10,56 +10,49 @@ export default function Home() {
     <div>
       <main className="flex py-5 items-center min-h-screen text-slate-900 z-10">
         <section className="container mx-auto px-6 lg:px-20">
-          <div className="flex flex-col items-center gap-8 md:flex-row md:justify-around">
+          <div className="flex justify-center items-center md:items-end md:justify-start">
+            {/* imagen */}
+            <div className="relative w-full h-[550px] overflow-hidden">
+              <Image
+                 src="/persons.png"
+                alt="Ilustración CitaUp"
+                fill
+                className="object-cover object-center brightness-85 blur-[1px]"
+                priority
+              />
+            </div>
+
             {/* contenido del texto */}
-            <div className="space-y-6 flex flex-col text-center md:justify-start">
+            <div className="absolute py-10 space-y-2 px-5 sm:px-10">
               <motion.div
                 initial={{ opacity: 0, y: -16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
-                <h1 className="text-4xl font-extrabold leading-tight md:text-start lg:text-5xl">
-                  Agenda fácil,
+                <h1 className="text-4xl text-white text-center md:text-start font-extrabold leading-tight lg:text-6xl">
+                  Agenda fácil, rápido y sin
                   <br />
-                  rápido y <span className="text-blue-600">sin</span>
-                  <br />
-                  <span className="text-blue-600">complicaciones</span>
+                  <span>complicaciones</span>
                 </h1>
               </motion.div>
 
               <motion.p
-                className="text-slate-600 max-w-xl md:text-start"
+                className="max-w-auto text-center text-white px-5 sm:px-0 md:text-start"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.12 }}
               >
                 Gestiona tus citas de manera eficiente y olvídate del estrés.
-                <br />
                 Nuestra plataforma te permite agendar en segundos.
               </motion.p>
 
               <div className="flex w-full justify-center md:justify-start">
                 <Link
                   href="/appointments"
-                  className="inline-block bg-gradient-to-r from-blue-600 to-sky-400 text-white px-6 py-2.5 rounded-md shadow-md hover:opacity-95"
+                  className="inline-block bg-blue-600 text-white px-6 py-2.5 rounded-md shadow-md hover:opacity-95"
                 >
                   Agendar cita
                 </Link>
-              </div>
-            </div>
-
-
-            {/* imagen */}
-            <div className="flex justify-center">
-              <div className="w-full max-w-[560px]">
-                <Image
-                  src="/CitaUp.png"
-                  alt="Ilustración CitaUp"
-                  width={560}
-                  height={420}
-                  className="rounded-md object-contain w-full h-auto"
-                  priority
-                />
               </div>
             </div>
           </div>
