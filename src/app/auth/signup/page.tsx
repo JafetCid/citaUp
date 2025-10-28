@@ -1,7 +1,13 @@
-import Image from 'next/image'
+'use client'
+
 import React from 'react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export default function SignupPage() {
+
+	const route = useRouter();
+
 	return (
 		<main className="min-h-screen   flex items-center">
 			<section className="container mx-auto px-6 lg:px-20 py-16">
@@ -49,7 +55,7 @@ export default function SignupPage() {
 								</div>
 
 								<div className="space-y-2">
-									<button type="submit" className="w-full bg-gradient-to-r from-indigo-600 to-blue-500 text-white px-4 py-2.5 rounded-md font-medium">Crear cuenta</button>
+									<button type="submit" onClick={() => route.push("/doctor/welcome")} className="w-full bg-gradient-to-r from-indigo-600 to-blue-500 text-white px-4 py-2.5 rounded-md font-medium">Crear cuenta</button>
 
 									<button type="button" className="w-full border border-slate-200 px-4 py-2.5 text-[var(--text-secondary)] rounded-md flex items-center justify-center gap-2">
 										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +68,7 @@ export default function SignupPage() {
 									</button>
 								</div>
 
-								<p className="text-sm text-slate-600 text-center">¿Ya tienes una cuenta? <a href="/login" className="text-sky-600">Inicia sesión</a></p>
+								<p className="text-sm text-slate-600 text-center">¿Ya tienes una cuenta? <a href="/auth/login" className="text-sky-600">Inicia sesión</a></p>
 							</form>
 						</div>
 					</div>

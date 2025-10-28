@@ -34,7 +34,7 @@ export default function LoginPage() {
                     {/* Illustration */}
                     <div className="order-2 lg:order-1 flex justify-center lg:justify-center">
                         <div className="max-w-md">
-                            <Image src="/logo-salud.png" alt="Ilustración calendario" width={520} height={380} className="w-full h-auto" />
+                            <Image src="/logo-salud.png" alt="Ilustración calendario" width={520} height={380} className="object-contain" />
                         </div>
                     </div>
 
@@ -80,7 +80,7 @@ export default function LoginPage() {
                                     </button>
                                 </div>
 
-                                <p className="text-sm text-slate-600 text-center">¿No tienes cuenta? <a href="/signup" className="text-sky-600">Regístrate</a></p>
+                                <p className="text-sm text-slate-600 text-center">¿No tienes cuenta? <a href="/auth/signup" className="text-sky-600">Regístrate</a></p>
                             </form>
                         </div>
                     </div>

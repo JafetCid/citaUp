@@ -23,6 +23,7 @@ export default function Sidebar() {
 
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
+<<<<<<< HEAD
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
@@ -52,6 +53,12 @@ export default function Sidebar() {
           }`}
         />
       </button>
+=======
+    const links: Links[] = [
+        { href: "/", label: "Inico", icon: <IoHomeOutline size={24} /> },
+        { href: "/appointments", label: "Agendar cita", icon: <IoCalendarClearOutline size={24} /> },
+    ];
+>>>>>>> 1e7bafb2a9d9f8eb7b40cfc33c5c1afea053d622
 
       {/* Sidebar */}
       <motion.div

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import Card from "@/components/Card";
 
 export default function Home() {
   return (
@@ -28,7 +29,7 @@ export default function Home() {
                 className="text-3xl dark:text-[var(--text-primary)] sm:text-4xl lg:text-5xl  font-extrabold leading-tight "
               >
                 Agenda fácil,
-                <br  />
+                <br />
                 rápido y <span className="text-[var(--text-primary)]">sin</span><br />
                 <span className="text-[var(--text-primary)]">complicaciones</span>
               </motion.h1>
@@ -94,7 +95,34 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
+          <Card
+            title="Consulta inicial"
+            contenido="Evaluación completa de tu historial médico y diagnóstico inicial para establecer un plan de tratamiento personalizado."
+            duracion="45 minutos"
+            incluye="Examen físico y recomendaciones"
+          />
+          <Card
+            title="Revisión de Salud"
+            contenido="Seguimiento periódico para monitorear tu progreso y ajustar tratamientos según sea necesario."
+            duracion="30 minutos"
+            incluye="Análisis de resultados previos"
+          />
+          <Card
+            title="Consulta de seguimiento"
+            contenido="Seguimiento periódico para monitorear tu progreso y ajustar tratamientos según sea necesario."
+            duracion="30 minutos"
+            incluye="Análisis de resultados previos"
+          />
+          <Card
+            title="Consulta personalizada"
+            contenido="Seguimiento periódico para monitorear tu progreso y ajustar tratamientos según sea necesario."
+            duracion="30 minutos"
+            incluye="Análisis de resultados previos"
+          />
+        </div>
       </section>
+      
     </main>
   );
 }
