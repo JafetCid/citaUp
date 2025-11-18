@@ -4,19 +4,19 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { IoCalendar, IoHome } from 'react-icons/io5';
-import { Links } from '@/types/components/Navbar/navbar';
 import Image from 'next/image';
+import { PropsNavbar } from '@/types/components/Navbar/navbar';
 
-export default function Sidebar() {
+export default function Sidebar({ navLinks }: PropsNavbar) {
+
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
-    const links: Links[] = [
-        { href: '/', label: 'Inicio', icon: <IoHome size={24} color='white' /> },
-        { href: '/appointments', label: 'Agendar cita', icon: <IoCalendar size={24} color='white' /> },
-        // { href: '/services-doc', label: 'Servicios', icon: <IoBriefcase size={24} color='white' /> },
-    ];
+    // const links: Links[] = [
+    //     { href: '/', label: 'Inicio', icon: <IoHome size={24} color='white' /> },
+    //     { href: '/appointments', label: 'Agendar cita', icon: <IoCalendar size={24} color='white' /> },
+    //     // { href: '/services-doc', label: 'Servicios', icon: <IoBriefcase size={24} color='white' /> },
+    // ];
 
     const toggleSidebar = () => setIsOpen((prev) => !prev);
 
@@ -53,8 +53,8 @@ export default function Sidebar() {
                     ${isOpen ? "translate-x-0 p-8" : "translate-x-full p-8"}`}
                 >
                     <div className="flex flex-col gap-6 pt-10">
-                        {links.map(({ href, label, icon }) => (
-                            <div key={href}>
+                        {navLinks.map(({ href, label, icon }) => (
+                            <div key={label}>
                                 <Link href={href} onClick={() => setIsOpen(false)} className="flex gap-2">
                                     {icon}
                                     <p className="flex flex-col">

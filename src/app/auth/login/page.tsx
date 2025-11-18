@@ -1,14 +1,19 @@
 'use client';
+import Button from '@/components/Button';
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 export default function LoginPage() {
+
+    const router = useRouter();
     const [email,setEmail]=React.useState('');
     const [password,setPassword]=useState('');
 
 
-    const handleLogin = async(e: React.FormEvent)=>{
-        e.preventDefault();
+    const handleLogin = async()=>{
+        router.push("/doctor/welcome");
+        // e.preventDefault();
 
         // const res= await fetch('/api/auth/login',{
         //     method: 'POST',
@@ -67,9 +72,10 @@ export default function LoginPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <button type="submit" onClick={handleLogin} className="w-full bg-gradient-to-r from-blue-600 to-sky-400 text-white px-4 py-2.5 rounded-md font-medium">Log In</button>
+                                    <Button text="Log In" style="w-full" onClick={handleLogin}/>
+                                    {/* <button type="submit" onClick={handleLogin} className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-sky-400 text-white px-4 py-2.5 rounded-md font-medium">Log In</button> */}
 
-                                    <button type="button" className="w-full border border-slate-200 px-4 py-2.5 text-[var(--text-secondary)]     rounded-md flex items-center justify-center gap-2">
+                                    <button type="button" className="w-full cursor-pointer border border-slate-200 px-4 py-2.5 text-[var(--text-secondary)]     rounded-md flex items-center justify-center gap-2">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M21 12.3c0-.7-.1-1.3-.2-1.9H12v3.6h5.6c-.2 1.1-.8 2-1.6 2.7l2.6 2c1.5-1.4 2.5-3.5 2.5-6.4z" fill="#4285F4" />
                                             <path d="M12 22c2.7 0 5-0.9 6.7-2.4l-2.6-2c-0.7 0.5-1.8 1-4.1 1-3.1 0-5.6-2.1-6.5-5l-2.8 2.1C5.9 19.8 8.7 22 12 22z" fill="#34A853" />

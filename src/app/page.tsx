@@ -1,11 +1,16 @@
 'use client';
 
 import Image from "next/image";
-import Link from "next/link";
+
 import { motion } from "framer-motion";
 import Services from "@/components/Services";
+import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const router = useRouter();
+
   return (
     <>
       <main className="min-h-screen w-full bg-[var(--background)] overflow-hidden">
@@ -37,14 +42,10 @@ export default function Home() {
                 </motion.p>
 
                 <div className="mt-6 flex justify-center lg:justify-start gap-4">
-                  <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
-                    <Link
-                      href="/signup"
-                      className="inline-flex items-center gap-3 bg-[#007bff] text-white px-6 py-3 rounded-lg shadow-xl"
-                    >
-                      <span className="font-semibold">Comenzar (Prueba)</span>
-                    </Link>
-                  </motion.div>
+                  <Button
+                    text="Agendar cita"
+                    onClick={() => router.push("/appointments")}
+                  />
                 </div>
 
                 <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-3">

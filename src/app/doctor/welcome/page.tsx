@@ -2,17 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
-type Appointment = {
-  id: string;
-  title: string;
-  subtitle: string;
-  time: string;
-  name?: string;
-};
+import { Appointment } from "@/types/views/welcome";
+import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
+import { IoNotificationsOutline } from "react-icons/io5";
 
 export default function Bienvenida() {
+
+  const router = useRouter();
+
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,11 +29,11 @@ export default function Bienvenida() {
           {/* Columna principal */}
           <div className="lg:col-span-2">
             <header className="mb-6">
-              <h2 className="text-3xl lg:text-4xl font-extrabold">¡Bienvenido, Jafet!</h2>
-              <p className="text-slate-600 mt-2">Tu día puede, citas, organiza y listo.</p>
+              <h2 className="text-3xl text-white lg:text-4xl font-extrabold">¡Bienvenido, Jafet!</h2>
+              <p className="text-slate-400 mt-2">Tu día puede, citas, organiza y listo.</p>
             </header>
 
-            <section className="bg-gradient-to-r from-white to-white/70 rounded-2xl p-6 shadow-xl">
+            <section className="bg-white rounded-2xl p-6 shadow-xl">
               <div className="flex items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-xl font-semibold">Próximas Citas</h3>
@@ -54,7 +53,7 @@ export default function Bienvenida() {
                 {appointments.map((a) => (
                   <article
                     key={a.id}
-                    className="group relative flex items-center justify-between gap-4 bg-white/80 hover:bg-white transition rounded-xl p-4 shadow-md"
+                    className="group relative flex items-center justify-between gap-4 bg-white hover:bg-white transition rounded-xl p-4 shadow-md"
                   >
                     <div className="absolute left-0 top-0 bottom-0 w-2 rounded-l-xl bg-gradient-to-b from-blue-500 to-sky-400 opacity-90" />
 
@@ -83,48 +82,61 @@ export default function Bienvenida() {
               </div>
 
               <div className="mt-6">
-                <button className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-blue-500 text-white px-6 py-3 rounded-full shadow-2xl transform hover:-translate-y-0.5 transition-all">
-                  <Link
-                    href="/appointments"
-                  >
-                  Agendar Nueva Cita
-                    </Link>
-                </button>
+                <Button
+                  text="Agendar nueva cita"
+                  onClick={() => router.push("/doctor/appointments")}
+                />
               </div>
             </section>
           </div>
 
           {/* Aside */}
           <aside className="space-y-6">
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-              <h4 className="font-semibold">Acceso Rápido</h4>
-              <p className="text-sm text-slate-500">Atajos para tus acciones más usadas</p>
-
-              <div className="mt-4 space-y-3">
-                {[
-                  { label: "Ver Calendario Completo", desc: "Revisa tus agendas" },
-                  { label: "Configurar Perfil", desc: "Actualiza tus datos" },
-                  { label: "Notificaciones", desc: "Ver recientes" },
-                ].map(({ label, desc }, i) => (
-                  <button key={i} className="w-full text-left flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition">
-                    <div className="w-10 h-10 rounded-md bg-gradient-to-tr from-blue-50 to-sky-50 flex items-center justify-center">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="4" width="18" height="18" rx="3" stroke="#1F6FEB" strokeWidth="1.5" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="font-medium">{label}</div>
-                      <div className="text-xs text-slate-500">{desc}</div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-lg text-center">
               <Image src="/CitaUp.png" alt="avatar" width={180} height={140} className="mx-auto rounded-md" />
               <div className="mt-4 font-semibold">Resumen rápido</div>
               <div className="text-sm text-slate-500 mt-2">Próximas 3 citas</div>
+            </div>
+
+            <div className="bg-white backdrop-blur-sm rounded-2xl p-4 shadow-lg">
+              <div className="flex justify-between items-end">
+                <div className="">
+                  <h4 className="font-semibold">Solicitud de Citas</h4>
+                  <p className="text-sm text-slate-500">Citas por confirmar o rechazar</p>
+                </div>
+                <div className="">
+                  <div className="absolute flex justify-center items-center bg-blue-600 w-6 h-6 -mt-4 mr-1.5 right-0 rounded-full">
+                    <p className="text-white text-sm">3</p>
+                  </div>
+                  <IoNotificationsOutline size={20} className="mt-0.5" />
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-3">
+                {[
+                  { name: "Luis Martinez Flores", date: "12/11/2050", time: "10:00 am" },
+                  { name: "Victor Gonzalez Espinoza", date: "22/10/2026", time: "5:00 pm" },
+                  { name: "Paola Martinez", date: "01/12/2025", time: "12:00 pm" },
+                ].map((data, index) => (
+                  <div key={index} className="w-full text-left flex gap-3 p-3 rounded-lg">
+
+                    <div>
+                      <IoNotificationsOutline size={20} className="mt-0.5" />
+                    </div>
+                    <div className="grid gap-1">
+                      <div className="font-medium">{data.name}</div>
+                      <div className="flex gap-3 text-xs text-slate-500">
+                        <span>{data.date}</span>
+                        <span>{data.time}</span>
+                      </div>
+                      <div className="flex gap-5">
+                        <Button text="Aceptar" onClick={() => console.log("aceptada")} />
+                        <Button text="Rechazar" buttonColor="bg-red-600 hover:bg-red-700" onClick={() => console.log("rechazada")} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </aside>
         </div>

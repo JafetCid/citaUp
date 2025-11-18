@@ -3,3 +3,8 @@ export interface Links {
     label: string;
     icon: React.ReactNode;
 }
+
+export interface PropsNavbar {
+    navLinks: Links[];
+    href?: string;
+}

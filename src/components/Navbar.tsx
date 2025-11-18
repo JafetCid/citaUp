@@ -5,16 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { motion } from "framer-motion";
-import { IoCalendar, IoHome } from "react-icons/io5";
-import { Links } from '@/types/components/Navbar/navbar';
+import { PropsNavbar } from "@/types/components/Navbar/navbar";
 
-const navLinks: Links[] = [
-    { href: "/", label: "Inicio", icon: <IoHome size={20} className="text-white" /> },
-    { href: "/appointments", label: "Agendar cita", icon: <IoCalendar size={20} className="text-white" /> },
-    // { href: "/services-doc", label: "Servicios", icon: <IoBriefcaseOutline size={20} className="text-white" /> },
-];
-
-export default function Navbar() {
+export default function Navbar({ navLinks, href }: PropsNavbar) {
+    
     const pathname = usePathname();
 
     return (
@@ -28,11 +22,10 @@ export default function Navbar() {
                 className="w-full flex items-center justify-between py-3 px-3 md:px-6 bg-transparent"
             >
                 <div className="flex items-center gap-3">
-                    <Link href="/" aria-label="Ir al inicio" className="inline-flex items-center gap-3">
+                    <Link href={href as string} aria-label="Ir al inicio" className="inline-flex items-center gap-3">
                         <div className="rounded-full bg-white/25 backdrop-blur px-1.5 py-1 border border-white/12 shadow-sm">
                             <Image src="/logo.png" alt="Logo" width={100} height={80} priority />
                         </div>
-                        {/* <span className="hidden md:inline text-white font-semibold drop-shadow-sm">CitaUp</span> */}
                     </Link>
                 </div>
 
