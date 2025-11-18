@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export interface PropsInput {
     label: string;
-    icon: ReactNode;
+    icon?: ReactNode;
     type: string;
     min?: string;
     placeholder?: string;

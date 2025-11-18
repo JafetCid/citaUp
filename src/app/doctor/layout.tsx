@@ -11,7 +11,7 @@ export default function DoctorLayout({ children }: { children: React.ReactNode }
     ];
 
     return (
-        <main>
+        <main className="min-h-screen">
             <Sidebar navLinks={navLinksDoctor} />
             <Navbar href="/doctor/welcome" navLinks={navLinksDoctor} />
             {children}
