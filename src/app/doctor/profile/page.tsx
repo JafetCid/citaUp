@@ -40,15 +40,15 @@ export default function page() {
             <p>luishdz@gmail.com</p>
           </div>
         </div>
-        <div className="grid place-items-center gap-5 mb-5">
+        <div className="grid grid-cols-1 place-items-center gap-5 mb-5 px-5 mlg:grid-cols-2">
           <Button
             text="Editar perfil"
-            style="w-1/2"
+            style="w-full md:w-1/2"
             onClick={() => setIsOpen(!isOpen)}
           />
           <Button
             text="Cambiar contraseña"
-            style="w-1/2"
+            style="w-full md:w-1/2"
             onClick={() => setIsOpenPass(!isOpenPass)}
           />
         </div>
@@ -57,13 +57,13 @@ export default function page() {
       <ProfileModal
         isOpen={isOpen}
         onClose={toggleModal}
-        onClick={toggleModal}
+        // onClick={toggleModal}
       />
 
       <PasswordModal
         isOpen={isOpenPass}
         onClose={toggleModalPass}
-        onClick={toggleModalPass}
+        // onClick={toggleModalPass}
       />
     </div>
   )

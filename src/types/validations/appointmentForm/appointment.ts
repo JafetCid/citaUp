@@ -1,9 +1,9 @@
 export interface AppointmentsForm { 
     name: string;
     email: string;
-    phoneNumber: number | string;
-    date: number | string;
-    hour: number | string;
+    phoneNumber: string;
+    date: string;
+    hour: string;
     service: string;
     comments: string;
 }
