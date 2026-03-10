@@ -3,10 +3,36 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import Input from '@/components/Input';
+import { SignUpForm } from '@/types/views/signUp';
+import { signUpRequest } from '@/lib/api/auth';
+import { axiosErrors } from '@/lib/errors';
 
 export default function SignupPage() {
 
 	const route = useRouter();
+
+	const { register, handleSubmit } = useForm<SignUpForm>();
+
+	const onSubmit: SubmitHandler<SignUpForm> = async (data) => {
+		const body = {
+			nombre: data.name,
+			apellidos: data.lastName,
+			password: data.confirmPassword,
+			correo: data.email,
+		}
+
+		try {
+			console.log(body);
+			const response = await signUpRequest(body);
+			route.push("/auth/login");
+
+		} catch (error: unknown) {
+			axiosErrors(error);
+		}
+	}
 
 	return (
 		<main className="min-h-screen   flex items-center">
@@ -15,7 +41,7 @@ export default function SignupPage() {
 					{/* Illustration */}
 					<div className="flex justify-center lg:justify-center">
 						<div className="max-w-md">
-							<Image src="/doc.png" alt="Ilustración signup" width={820} height={880} className="w-full h-auto lg:h-150 w-170" />
+							<Image src="/doc.png" alt="Ilustración signup" width={820} height={880} className="w-full h-auto lg:h-150" />
 						</div>
 					</div>
 
@@ -25,37 +51,74 @@ export default function SignupPage() {
 							<h1 className="text-2xl lg:text-3xl text-[var(--text-primary)]  font-extrabold">Regístrate</h1>
 							<p className="text-sm text-[var(--text-primary)] mt-2">Crea una cuenta y comienza a gestionar tus citas en segundos.</p>
 
-							<form className="mt-6 bg-white rounded-2xl p-6 shadow-md space-y-4">
+							<form onSubmit={handleSubmit(onSubmit)} className="mt-6 bg-white rounded-2xl p-6 shadow-md space-y-4">
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-									<label className="flex flex-col">
+									<Input
+										label="Nombre"
+										type="text"
+										placeholder="Nombre"
+										name="name"
+										register={register}
+									/>
+									<Input
+										label="Apellidos"
+										type="text"
+										placeholder="Apellidos"
+										name="lastName"
+										register={register}
+									/>
+									{/* <label className="flex flex-col">
 										<span className="text-sm font-medium text-[var(--text-secondary)]">Nombre</span>
 										<input name="firstName" type="text" required placeholder="Nombre" className="mt-1 px-3 py-2 rounded-lg border text-[var(--text-secondary)] border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
-									</label>
+										</label>
 
-									<label className="flex flex-col">
+										<label className="flex flex-col">
 										<span className="text-sm font-medium text-[var(--text-secondary)]">Apellido</span>
 										<input name="lastName" type="text" required placeholder="Apellido" className="mt-1 px-3 py-2 text-[var(--text-secondary)] rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
-									</label>
+										</label>*/}
 								</div>
 
-								<label className="flex flex-col">
+								<Input
+									label="Correo electrónico"
+									type="email"
+									placeholder="tu@ejemplo.com"
+									name="email"
+									register={register}
+								/>
+
+
+								{/* <label className="flex flex-col">
 									<span className="text-sm font-medium text-[var(--text-secondary)]">Correo electrónico</span>
 									<input name="email" type="email" required placeholder="tu@ejemplo.com" className="mt-1 px-3 py-2 rounded-lg border text-[var(--text-secondary)] border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
-								</label>
+								</label>  */}
 
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-									<label className="flex flex-col">
+									<Input
+										label="Contraseña"
+										type="password"
+										placeholder="Contraseña"
+										name="password"
+										register={register}
+									/>
+									<Input
+										label="Confirmar contraseña"
+										type="password"
+										placeholder="Contraseña"
+										name="confirmPassword"
+										register={register}
+									/>
+									{/* <label className="flex flex-col">
 										<span className="text-sm font-medium text-[var(--text-secondary)]">Contraseña</span>
 										<input name="password" type="password" required placeholder="Contraseña" className="mt-1 px-3 py-2 text-[var(--text-secondary)] rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
 									</label>
 									<label className="flex flex-col">
 										<span className="text-sm font-medium text-[var(--text-secondary)]">Confirmar contraseña</span>
 										<input name="confirmPassword" type="password" required placeholder="Confirmar contraseña" className="mt-1 px-3 py-2 text-[var(--text-secondary)] rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
-									</label>
+									</label> */}
 								</div>
 
 								<div className="space-y-2">
-									<button type="submit" onClick={() => route.push("/doctor/welcome")} className="w-full bg-gradient-to-r from-indigo-600 to-blue-500 text-white px-4 py-2.5 rounded-md font-medium">Crear cuenta</button>
+									<button type="submit" className="w-full bg-gradient-to-r from-indigo-600 to-blue-500 text-white px-4 py-2.5 rounded-md font-medium">Crear cuenta</button>
 
 									<button type="button" className="w-full border border-slate-200 px-4 py-2.5 text-[var(--text-secondary)] rounded-md flex items-center justify-center gap-2">
 										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

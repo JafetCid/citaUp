@@ -15,6 +15,7 @@ import { AppointmentsForm } from '@/types/validations/appointmentForm/appointmen
 
 import { horasDisponibles, servicios } from '@/lib/constants/data'
 import { appointmentFormSchema } from '@/lib/validations/appointmentForm'
+import { appointmnetsDoc } from '@/lib/api/appointmentsDoc'
 
 export default function AppoitmentsForm({ onSubmit }: { onSubmit: (data: AppointmentsForm) => void }) {
 
@@ -26,9 +27,16 @@ export default function AppoitmentsForm({ onSubmit }: { onSubmit: (data: Appoint
 
     const handleForSubmit: SubmitHandler<AppointmentsForm> = async (data) => {
         console.log(data);
-
+        const body = {
+            nombrePaciente: data.name,
+            telefonoPaciente: data.phoneNumber,
+            correoPaciente: data.email,
+            fecha: data.date,
+            motivo: data.service,
+        }
         // Simular envío de formulario
         setIsSubmitting(true);
+        await appointmnetsDoc(body);
         await new Promise(resolve => setTimeout(resolve, 2000));
         setIsSubmitting(false);
         onSubmit(data);
@@ -111,6 +119,5 @@ export default function AppoitmentsForm({ onSubmit }: { onSubmit: (data: Appoint
                 text={`${isSubmitting ? "Agendando..." : "Confirmar Cita"}`}
                 onClick={() => console.log("")} />
         </form>
-
     )
 }

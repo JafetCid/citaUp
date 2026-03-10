@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import { AuthProvider } from "@/store/authContext";
 import { IoCalendar, IoHome } from "react-icons/io5";
 
 export default function DoctorLayout({ children }: { children: React.ReactNode }) {
@@ -11,10 +12,12 @@ export default function DoctorLayout({ children }: { children: React.ReactNode }
     ];
 
     return (
-        <main className="min-h-screen">
-            <Sidebar navLinks={navLinksDoctor} />
-            <Navbar href="/doctor/welcome" navLinks={navLinksDoctor} />
-            {children}
-        </main>
+        <AuthProvider>
+            <main className="min-h-screen">
+                <Sidebar navLinks={navLinksDoctor} showLogOut={true} />
+                <Navbar href="/doctor/welcome" navLinks={navLinksDoctor} showLogOut={true} />
+                {children}
+            </main>
+        </AuthProvider>
     );
 }

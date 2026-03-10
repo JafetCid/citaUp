@@ -5,10 +5,10 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { IoCalendarOutline, IoTimeOutline, IoMailOutline, IoCallOutline } from 'react-icons/io5'
 
+import { AppointmentsForm } from '@/types/validations/appointmentForm/appointment'
 import { PropsAppointments } from '@/types/components/Appointments/appointments'
 import AppoitmentsForm from './AppoitmentsForm'
 import CitaModal from './CitaModal'
-import { AppointmentsForm } from '@/types/validations/appointmentForm/appointment'
 
 export default function Appoitments({ style, contatcStyle }: PropsAppointments) {
 

@@ -2,25 +2,35 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-
-import { Appointment } from "@/types/views/welcome";
-import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 import { IoNotificationsOutline } from "react-icons/io5";
+
+import dayjs from 'dayjs';
+
+import Button from "@/components/Button";
+import { useAuth } from "@/store/authContext";
+import { Appointment } from "@/types/views/welcome";
+import { getAppointmentsDoc } from "@/lib/api/appointmentsDoc";
+
 
 export default function Bienvenida() {
 
   const router = useRouter();
-
+  const { userDoc } = useAuth();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://192.168.0.8:3100/doc/welcome')
-      .then((res) => res.json())
-      .then((data) => setAppointments(data))
-      .catch(() => setError("No se pudo cargar la información."));
+    const getAppointments = async () => {
+      const res = await getAppointmentsDoc();
+      console.log(res);
+      setAppointments(res);
+    }
+
+    getAppointments();
   }, []);
+
+  if (userDoc)
 
   return (
     <main className="text-slate-900">
@@ -29,7 +39,7 @@ export default function Bienvenida() {
           {/* Columna principal */}
           <div className="lg:col-span-2">
             <header className="mb-6">
-              <h2 className="text-3xl text-white lg:text-4xl font-extrabold">¡Bienvenido, Jafet!</h2>
+              <h2 className="text-3xl text-white lg:text-4xl font-extrabold">¡Bienvenido, {userDoc.doctor.nombre} {userDoc.doctor.apellidos}!</h2>
               <p className="text-slate-400 mt-2">Tu día puede, citas, organiza y listo.</p>
             </header>
 
@@ -65,16 +75,16 @@ export default function Bienvenida() {
                         </svg>
                       </div>
                       <div>
-                        {a.name && <div className="text-sm text-slate-500">{a.name}</div>}
-                        <div className="font-semibold text-slate-900">{a.title}</div>
-                        <div className="text-sm text-slate-500">{a.subtitle}</div>
+                        <div className="font-semibold text-slate-900">{a.nombrePaciente.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")}</div>
+                        {a.nombrePaciente && <div className="text-sm text-slate-500">{a.correoPaciente}</div>}
+                        <div className="text-sm text-slate-500">+52 {a.telefonoPaciente.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1-$2-$3-$4")}</div>
                       </div>
                     </div>
 
                     <div className="text-right pr-4">
-                      <div className="text-xs text-slate-500">Consulta</div>
+                      <div className="text-sm text-slate-500">{a.motivo}</div>
                       <span className="px-3 py-1 rounded-md bg-gradient-to-r from-blue-600 to-sky-400 text-white font-semibold">
-                        {a.time}
+                        {dayjs(a.fecha).format("DD-MM-YYYY")}
                       </span>
                     </div>
                   </article>

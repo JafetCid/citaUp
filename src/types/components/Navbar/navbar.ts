@@ -7,4 +7,5 @@ export interface Links {
 export interface PropsNavbar {
     navLinks: Links[];
     href?: string;
+    showLogOut?: boolean;
 }

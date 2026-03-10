@@ -1,15 +1,26 @@
 'use client';
 
-import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { IoExit } from "react-icons/io5";
 
+import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import { PropsNavbar } from "@/types/components/Navbar/navbar";
+import { logout } from "@/lib/api/logout";
 
-export default function Navbar({ navLinks, href }: PropsNavbar) {
-    
+export default function Navbar({ navLinks, href, showLogOut = false }: PropsNavbar) {
+
+    const router = useRouter();
     const pathname = usePathname();
+
+    const handleLogout = async () => {
+        const res = await logout();
+        console.log(res);
+        Cookies.remove("token");
+        window.location.href = "/auth/login"; // redirige al login
+    }
 
     return (
         <header className="hidden md:block z-10">
@@ -30,7 +41,7 @@ export default function Navbar({ navLinks, href }: PropsNavbar) {
                 </div>
 
                 {/* Desktop links */}
-                <nav className="hidden md:flex items-center gap-4">
+                <div className="hidden md:flex items-center gap-4">
                     {navLinks.map(({ href, label, icon }) => {
                         const isActive = pathname === href;
                         return (
@@ -47,7 +58,14 @@ export default function Navbar({ navLinks, href }: PropsNavbar) {
                             </Link>
                         );
                     })}
-                </nav>
+
+                    {showLogOut && (
+                        <button onClick={handleLogout} className="flex gap-2 items-center cursor-pointer">
+                            <IoExit size={22} className="text-white" />
+                            <span className="text-white text-sm font-medium">LogOut</span>
+                        </button>
+                    )}
+                </div>
             </motion.nav>
         </header>
     );

@@ -2,21 +2,20 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { IoExit } from 'react-icons/io5';
+
+import Cookies from "js-cookie";
+import { motion } from 'framer-motion';
 import { PropsNavbar } from '@/types/components/Navbar/navbar';
+import { logout } from '@/lib/api/logout';
 
-export default function Sidebar({ navLinks }: PropsNavbar) {
+export default function Sidebar({ navLinks, showLogOut = false }: PropsNavbar) {
 
+    const router = useRouter();
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
-
-    // const links: Links[] = [
-    //     { href: '/', label: 'Inicio', icon: <IoHome size={24} color='white' /> },
-    //     { href: '/appointments', label: 'Agendar cita', icon: <IoCalendar size={24} color='white' /> },
-    //     // { href: '/services-doc', label: 'Servicios', icon: <IoBriefcase size={24} color='white' /> },
-    // ];
 
     const toggleSidebar = () => setIsOpen((prev) => !prev);
 
@@ -30,6 +29,13 @@ export default function Sidebar({ navLinks }: PropsNavbar) {
         }
     }, [isOpen]);
 
+
+    const handleLogout = async () => {
+        const res = await logout();
+        console.log(res);
+        Cookies.remove("token", { path: "/" });
+        window.location.href = "/auth/login"; // redirige al login
+    }
 
     return (
         <>
@@ -72,6 +78,13 @@ export default function Sidebar({ navLinks }: PropsNavbar) {
                                 </Link>
                             </div>
                         ))}
+
+                        {showLogOut && (
+                            <button onClick={handleLogout} className="flex gap-2 items-center cursor-pointer">
+                                <IoExit size={24} className="text-white" />
+                                <p>LogOut</p>
+                            </button>
+                        )}
                     </div>
                 </div>
             </motion.nav>

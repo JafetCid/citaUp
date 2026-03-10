@@ -1,10 +1,11 @@
 'use client';
+
 import { usePathname } from 'next/navigation';
+import { IoCalendar, IoHome } from 'react-icons/io5';
+
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import { Links } from '@/types/components/Navbar/navbar';
-import { IoCalendar, IoHome } from 'react-icons/io5';
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
 
@@ -18,9 +19,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
     return (
         <>
-            {!isDoctorRoute && <Sidebar navLinks={navLinks}/>}
-            {!isDoctorRoute && <Navbar href="/" navLinks={navLinks}/>}
-            <main>{children}</main>
+            {!isDoctorRoute && <Sidebar navLinks={navLinks} />}
+            {!isDoctorRoute && <Navbar href="/" navLinks={navLinks} />}
+            <main>
+                {children}
+            </main>
             {!isDoctorRoute && <Footer />}
         </>
     );

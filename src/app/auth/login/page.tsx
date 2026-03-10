@@ -1,37 +1,33 @@
-'use client';
-import Button from '@/components/Button';
-import Image from 'next/image'
-import { useRouter } from 'next/navigation';
+'use client'
+
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation';
+import Image from 'next/image'
+
+import Button from '@/components/Button';
+import { loginRequest } from '@/lib/api/auth';
+import { axiosErrors } from '@/lib/errors';
 
 export default function LoginPage() {
 
     const router = useRouter();
-    const [email,setEmail]=React.useState('');
-    const [password,setPassword]=useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = useState('');
 
 
-    const handleLogin = async()=>{
-        router.push("/doctor/welcome");
-        // e.preventDefault();
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
 
-        // const res= await fetch('/api/auth/login',{
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({email, password})
+        try {
+            const res = await loginRequest(email, password);
+            console.log(res);
+            router.replace("/doctor/welcome");
 
-        // });
-        // const data= await res.json();
-        // console.log(data);
-        // if (data.success) {
-        //     // Redirigir o actualizar la UI
-        //     console.log('Login exitoso');
-        // } else {
-        //     console.log('Error de login:', data.message);
-        // }
+        } catch (error: unknown) {
+            axiosErrors(error);
+        }
     }
+
     return (
         <main className="min-h-screen  flex items-center">
             <section className="container mx-auto px-6 lg:px-20 py-16">
@@ -49,7 +45,7 @@ export default function LoginPage() {
                             <h1 className="text-2xl lg:text-3xl font-extrabold">Iniciar sesión</h1>
                             <p className="text-sm  mt-2">Accede a tu cuenta para gestionar y agendar citas rápidamente.</p>
 
-                            <form className="mt-6 bg-white rounded-2xl p-6 shadow-md space-y-4">
+                            <form onSubmit={handleLogin} className="mt-6 bg-white rounded-2xl p-6 shadow-md space-y-4">
                                 <label className="flex flex-col">
                                     <span className="text-sm font-medium text-slate-700">Correo electrónico</span>
                                     <input name="email" type="email" required placeholder="tu@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 px-3 py-2 text-[var(--text-secondary)] rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
@@ -60,7 +56,7 @@ export default function LoginPage() {
                                         <span className="text-sm font-medium text-slate-700">Contraseña</span>
                                         <a href="#" className="text-sm text-[var(--accent)]">¿Olvidaste tu contraseña?</a>
                                     </div>
-                                    <input name="password" type="password" required placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)}  className="mt-1 px-3 py-2 text-[var(--text-secondary)] rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
+                                    <input name="password" type="password" required placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 px-3 py-2 text-[var(--text-secondary)] rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-200" />
                                 </label>
 
                                 <div className="flex items-center justify-between">
@@ -72,10 +68,10 @@ export default function LoginPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Button text="Log In" style="w-full" onClick={handleLogin}/>
+                                    <Button type="submit" text="Log In" style="w-full"/>
                                     {/* <button type="submit" onClick={handleLogin} className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-sky-400 text-white px-4 py-2.5 rounded-md font-medium">Log In</button> */}
 
-                                    <button type="button" className="w-full cursor-pointer border border-slate-200 px-4 py-2.5 text-[var(--text-secondary)]     rounded-md flex items-center justify-center gap-2">
+                                    <button type="button" className="w-full cursor-pointer border border-slate-200 px-4 py-2.5 text-[var(--text-secondary)] rounded-md flex items-center justify-center gap-2">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M21 12.3c0-.7-.1-1.3-.2-1.9H12v3.6h5.6c-.2 1.1-.8 2-1.6 2.7l2.6 2c1.5-1.4 2.5-3.5 2.5-6.4z" fill="#4285F4" />
                                             <path d="M12 22c2.7 0 5-0.9 6.7-2.4l-2.6-2c-0.7 0.5-1.8 1-4.1 1-3.1 0-5.6-2.1-6.5-5l-2.8 2.1C5.9 19.8 8.7 22 12 22z" fill="#34A853" />
